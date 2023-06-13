@@ -7,7 +7,7 @@ use clap::Parser;
 #[command(name = "Redirection Detector")]
 struct Cli {
     /// Sets the timeout for the request in seconds
-    #[arg(short, long)]
+    #[arg(short, long, default_value = "5")]
     timeout: Option<u64>,
 
     /// Sets the URL to detect redirection
@@ -67,7 +67,7 @@ fn main() {
     // https://www.ditig.com/256-colors-cheat-sheet
     match detector.detect(&args.url) {
         Ok(Some(uri)) => print_colored_message(&format!("Redirect URI: {}", uri), 41), // SpringGreen3	#00d75f
-        Ok(None) => print_colored_message("No redirect occurred.", 39), // DeepSkyBlue1	#00afff	
+        Ok(None) => print_colored_message("No redirect occurred.", 39), // DeepSkyBlue1	#00afff
         Err(err) => print_colored_message(&format!("Error: {}", err), 202), //OrangeRed1	#ff5f00
     }
 }
